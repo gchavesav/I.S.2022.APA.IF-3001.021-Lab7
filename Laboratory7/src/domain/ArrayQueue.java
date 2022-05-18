@@ -4,6 +4,9 @@
  */
 package domain;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Profesor Gilberth Chaves A <gchavesav@ucr.ac.cr>
@@ -41,7 +44,28 @@ public class ArrayQueue implements Queue {
 
     @Override
     public int indexOf(Object element) throws QueueException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if(isEmpty())
+            throw new QueueException("Array Queue is Empty");
+        ArrayQueue aux = new ArrayQueue(size());
+        int i = 0; //index
+        int j = -1; //si es -1 no existe
+        try {
+            while(!isEmpty()){
+                if(util.Utility.equals(front(), element)){
+                    j = i;
+                }
+                aux.enQueue(deQueue());
+                i++;
+            }
+            //al final dejamos la cola en su estado original
+            while(!aux.isEmpty()){
+                enQueue(aux.deQueue());
+            }
+                
+        } catch (QueueException ex) {
+            Logger.getLogger(ArrayQueue.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return j; //retorna -1 si el elemento no fue encolado
     }
 
     @Override
@@ -60,12 +84,33 @@ public class ArrayQueue implements Queue {
 
     @Override
     public Object deQueue() throws QueueException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if(isEmpty())
+            throw new QueueException("Array Queue is Empty");
+        return this.queue[++front];
     }
 
     @Override
     public boolean contains(Object element) throws QueueException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         if(isEmpty())
+            throw new QueueException("Array Queue is Empty");
+        ArrayQueue aux = new ArrayQueue(size());
+        boolean finded = false; //encontrado
+        try {
+            while(!isEmpty()){
+                if(util.Utility.equals(front(), element)){
+                    finded = true;
+                }
+                aux.enQueue(deQueue());
+            }
+            //al final dejamos la cola en su estado original
+            while(!aux.isEmpty()){
+                enQueue(aux.deQueue());
+            }
+                
+        } catch (QueueException ex) {
+            Logger.getLogger(ArrayQueue.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return finded;
     }
 
     @Override
@@ -77,5 +122,27 @@ public class ArrayQueue implements Queue {
     public Object front() throws QueueException {
         return this.queue[front+1];
     }
+
+    @Override
+    public String toString() {
+        String result = "Array Queue Content: \n";
+        ArrayQueue aux = new ArrayQueue(size());
+        try {
+            while(!isEmpty()){
+                    result+=front()+"\n";
+                    aux.enQueue(deQueue());
+            }
+            //al final dejamos la cola en su estado original
+            while(!aux.isEmpty()){
+                enQueue(aux.deQueue());
+            }
+                
+        } catch (QueueException ex) {
+            Logger.getLogger(ArrayQueue.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+    
+    
     
 }

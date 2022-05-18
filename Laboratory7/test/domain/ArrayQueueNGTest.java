@@ -6,7 +6,6 @@ package domain;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 
 /**
@@ -33,6 +32,10 @@ public class ArrayQueueNGTest {
             System.out.println("Array queue front element: "
                     +queue.front());
             System.out.println("Array queue size: "+queue.size());
+            System.out.println("Contains 50? " +queue.contains(50)+", indexOf: "+queue.indexOf(50));
+            System.out.println("Contains 17? " +queue.contains(17)+", indexOf: "+queue.indexOf(17));
+            System.out.println(queue.toString());
+
             
         } catch (QueueException ex) {
             Logger.getLogger(ArrayQueueNGTest.class.getName()).log(Level.SEVERE, null, ex);
