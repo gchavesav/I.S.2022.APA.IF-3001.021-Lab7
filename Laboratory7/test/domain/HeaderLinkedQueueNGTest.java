@@ -45,5 +45,20 @@ public class HeaderLinkedQueueNGTest {
             Logger.getLogger(ArrayQueueNGTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+        
+        @Test
+        public void test2() {
+        try {
+            HeaderLinkedQueue q1 = new HeaderLinkedQueue();
+            HeaderLinkedQueue q2 = new HeaderLinkedQueue();
+            HeaderLinkedQueue q3 = new HeaderLinkedQueue();
+            
+            q1.enQueue(new Climate(new Place("Cartago"), new Weather("rainy")));
+            
+        } catch (QueueException ex) {
+            Logger.getLogger(HeaderLinkedQueueNGTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        }
     
 }

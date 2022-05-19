@@ -10,6 +10,7 @@ package domain;
  */
 public class Node {
     public Object data;
+    public Integer priority; //1=low, 2=medium, 3=high
     public Node next; //apuntador al sgte node
     
     //Constructor
@@ -18,8 +19,16 @@ public class Node {
         this.next = null;
     }
 
-    //Constructor recargado
+    //Constructor sobrecargado
     public Node() {
         this.next = null;
     }
+    
+    //Constructor sobrecargado
+    public Node(Object data, Integer priority) {
+        this.data = data;
+        this.priority = priority;
+        this.next = null;
+    }
+    
 }

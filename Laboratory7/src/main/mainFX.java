@@ -18,7 +18,7 @@ public class mainFX extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLMainMenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLQueueReplacing.fxml"));
         
         Scene scene = new Scene(root);
         String css = mainFX.class.getResource("MyStyle.css").toExternalForm();
