@@ -11,42 +11,38 @@ import java.util.logging.Logger;
  *
  * @author Profesor Gilberth Chaves A <gchavesav@ucr.ac.cr>
  */
-public class ArrayQueue implements Queue {
-    private int n; //total de elementos
-    private int front, rear; //anterior y posterior
-    private Object queue[];
+public class LinkedQueue implements Queue{
+    private Node front; //apuntador al anterior
+    private Node rear; //apuntador a posterior
+    private int counter; //contador de elementos encolados
 
     //Constructor
-    public ArrayQueue(int n){
-        if(n<=0) System.exit(-1); //error
-        this.n = n;
-        this.queue = new Object[n];
-        this.rear = n-1;
-        this.front = rear;
+    public LinkedQueue() {
+        this.front = this.rear = null;
+        this.counter = 0;
     }
-    
+
     @Override
     public int size() {
-        return rear-front;
+        return counter;
     }
 
     @Override
     public void clear() {
-        this.queue = new Object[n];
-        this.rear = n-1;
-        this.front = rear;
+        this.front = this.rear = null;
+        this.counter = 0;
     }
 
     @Override
     public boolean isEmpty() {
-        return front==rear;
+        return front==null;
     }
 
     @Override
     public int indexOf(Object element) throws QueueException {
         if(isEmpty())
-            throw new QueueException("Array Queue is Empty");
-        ArrayQueue aux = new ArrayQueue(size());
+            throw new QueueException("Linked Queue is Empty");
+        LinkedQueue aux = new LinkedQueue();
         int i = 0; //index
         int j = -1; //si es -1 no existe
         try {
@@ -70,30 +66,39 @@ public class ArrayQueue implements Queue {
 
     @Override
     public void enQueue(Object element) throws QueueException {
-        if(size()==this.queue.length){
-            throw new QueueException("Array Queue is full");
+        Node newNode = new Node(element);
+        if(isEmpty()){
+            rear = newNode;
+            //garantizo q anterior quede apuntando al primer nodo
+            front = rear;
+        }else{
+            rear.next = newNode;
+            rear = newNode;
         }
-        //la primera, cuando la cola esta vacia, no entra al for
-        for (int i = front; i < rear; i++) {
-            this.queue[i] = this.queue[i+1];
-            
-        }
-        this.queue[rear] = element;
-        front--; //siempre queda en una casilla vacia
+        //al final actualizo el counter
+        counter++;
     }
 
     @Override
     public Object deQueue() throws QueueException {
         if(isEmpty())
-            throw new QueueException("Array Queue is Empty");
-        return this.queue[++front];
+            throw new QueueException("Linked Queue is Empty");
+        Object element = front.data;
+        //Caso1. cuando solo hay un elemento
+        if(front==rear){
+            clear(); //anulo la cola
+        }else{ //Caso2. Hay mas de un elemento
+            front = front.next;
+        }
+        counter--; //actulizo el contador de elementos encolados
+        return element;
     }
 
     @Override
     public boolean contains(Object element) throws QueueException {
         if(isEmpty())
-            throw new QueueException("Array Queue is Empty");
-        ArrayQueue aux = new ArrayQueue(size());
+            throw new QueueException("Linked Queue is Empty");
+        LinkedQueue aux = new LinkedQueue();
         boolean finded = false; //encontrado
         try {
             while(!isEmpty()){
@@ -115,18 +120,22 @@ public class ArrayQueue implements Queue {
 
     @Override
     public Object peek() throws QueueException {
-        return this.queue[front+1];
+        if(isEmpty())
+            throw new QueueException("Linked Queue is Empty");
+        return front.data;
     }
 
     @Override
     public Object front() throws QueueException {
-        return this.queue[front+1];
+        if(isEmpty())
+            throw new QueueException("Linked Queue is Empty");
+        return front.data;
     }
-
+    
     @Override
     public String toString() {
-        String result = "Array Queue Content: \n";
-        ArrayQueue aux = new ArrayQueue(size());
+        String result = "Linked Queue Content: \n";
+        LinkedQueue aux = new LinkedQueue();
         try {
             while(!isEmpty()){
                     result+=front()+"\n";
