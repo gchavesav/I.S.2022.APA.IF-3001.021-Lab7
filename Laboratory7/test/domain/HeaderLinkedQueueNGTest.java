@@ -12,15 +12,15 @@ import org.testng.annotations.Test;
  *
  * @author Profesor Gilberth Chaves A <gchavesav@ucr.ac.cr>
  */
-public class LinkedQueueNGTest {
+public class HeaderLinkedQueueNGTest {
     
-    public LinkedQueueNGTest() {
+    public HeaderLinkedQueueNGTest() {
     }
 
     @Test
     public void test() {
         try {
-            LinkedQueue queue = new LinkedQueue();
+            HeaderLinkedQueue queue = new HeaderLinkedQueue();
             queue.enQueue(10);
             queue.enQueue(20);
             queue.enQueue(30);
@@ -29,15 +29,15 @@ public class LinkedQueueNGTest {
             queue.enQueue(70);
             queue.enQueue(90);
             //queue.enQueue(2);
-            System.out.println("Linked queue front element: "
+            System.out.println("Header Linked queue front element: "
                     +queue.front());
-            System.out.println("Linked queue size: "+queue.size());
+            System.out.println("Header Linked queue size: "+queue.size());
             System.out.println(queue.toString());
             System.out.println("DEQUEUE? "+queue.deQueue());
             System.out.println("DEQUEUE? "+queue.deQueue());
             System.out.println("Contains 50? " +queue.contains(50)+", indexOf: "+queue.indexOf(50));
             System.out.println("Contains 17? " +queue.contains(17)+", indexOf: "+queue.indexOf(17));
-            System.out.println("Linked queue size: "+queue.size());            
+            System.out.println("Header Linked queue size: "+queue.size());            
             System.out.println(queue.toString());
 
             

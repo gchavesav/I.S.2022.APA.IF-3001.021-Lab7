@@ -17,4 +17,9 @@ public class Node {
         this.data = data;
         this.next = null;
     }
+
+    //Constructor recargado
+    public Node() {
+        this.next = null;
+    }
 }
