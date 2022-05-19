@@ -89,8 +89,8 @@ public class LinkedQueue implements Queue{
             clear(); //anulo la cola
         }else{ //Caso2. Hay mas de un elemento
             front = front.next;
+            counter--; //actulizo el contador de elementos encolados
         }
-        counter--; //actulizo el contador de elementos encolados
         return element;
     }
 
