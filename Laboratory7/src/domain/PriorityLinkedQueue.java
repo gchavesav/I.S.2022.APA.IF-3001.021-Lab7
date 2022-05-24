@@ -41,7 +41,7 @@ public class PriorityLinkedQueue implements Queue{
     @Override
     public int indexOf(Object element) throws QueueException {
         if(isEmpty())
-            throw new QueueException("Linked Queue is Empty");
+            throw new QueueException("Priority Linked Queue is Empty");
         PriorityLinkedQueue aux = new PriorityLinkedQueue();
         int i = 0; //index
         int j = -1; //si es -1 no existe
@@ -117,7 +117,7 @@ public class PriorityLinkedQueue implements Queue{
     @Override
     public Object deQueue() throws QueueException {
         if(isEmpty())
-            throw new QueueException("Linked Queue is Empty");
+            throw new QueueException("Priority Linked Queue is Empty");
         Object element = front.data;
         //Caso1. cuando solo hay un elemento
         if(front==rear){
@@ -132,7 +132,7 @@ public class PriorityLinkedQueue implements Queue{
     @Override
     public boolean contains(Object element) throws QueueException {
         if(isEmpty())
-            throw new QueueException("Linked Queue is Empty");
+            throw new QueueException("Priority Linked Queue is Empty");
         PriorityLinkedQueue aux = new PriorityLinkedQueue();
         boolean finded = false; //encontrado
         try {
@@ -156,29 +156,31 @@ public class PriorityLinkedQueue implements Queue{
     @Override
     public Object peek() throws QueueException {
         if(isEmpty())
-            throw new QueueException("Linked Queue is Empty");
+            throw new QueueException("Priority Linked Queue is Empty");
         return front.data;
     }
 
     @Override
     public Object front() throws QueueException {
         if(isEmpty())
-            throw new QueueException("Linked Queue is Empty");
+            throw new QueueException("Priority Linked Queue is Empty");
         return front.data;
     }
     
     @Override
     public String toString() {
-        String result = "Linked Queue Content: \n";
+        String result = "Priority Linked Queue Content: \n";
         PriorityLinkedQueue aux = new PriorityLinkedQueue();
         try {
             while(!isEmpty()){
                     result+=front()+"\n";
-                    aux.enQueue(deQueue());
+                    Integer priority = this.front.priority;
+                    aux.enQueue(deQueue(), priority);
             }
             //al final dejamos la cola en su estado original
             while(!aux.isEmpty()){
-                enQueue(aux.deQueue());
+                Integer priority = aux.front.priority;
+                enQueue(aux.deQueue(), priority);
             }
                 
         } catch (QueueException ex) {
